@@ -1,0 +1,737 @@
+@import "tailwindcss";
+
+:root {
+  --green: #0e956a;
+  --ink: #15160e;
+  --dark-green: #0a6e4f;
+  --forest: #042e27;
+  --off-white: #faf9f7;
+  --muted: #5b5d54;
+  --rule: rgba(21, 22, 14, 0.12);
+  --rule-strong: rgba(21, 22, 14, 0.24);
+}
+
+@theme inline {
+  --color-green: #0e956a;
+  --color-ink: #15160e;
+  --color-dark-green: #0a6e4f;
+  --color-forest: #042e27;
+  --color-off-white: #faf9f7;
+  --color-muted: #5b5d54;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+  background-color: var(--off-white);
+  color: var(--ink);
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--off-white);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  letter-spacing: -0.011em;
+}
+
+::selection {
+  background-color: var(--green);
+  color: var(--off-white);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+
+/* Handwritten accent (Contact page signature line) */
+.font-script {
+  font-family: "Caveat", "Segoe Script", cursive;
+  letter-spacing: 0;
+}
+
+/* Custom utilities */
+.editorial {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+}
+
+.rule-top {
+  border-top: 1px solid var(--rule);
+}
+
+.rule-bottom {
+  border-bottom: 1px solid var(--rule);
+}
+
+.divider-thin {
+  height: 1px;
+  background: var(--rule);
+  width: 100%;
+}
+
+.signature-line {
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
+  height: 1px;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hide-cursor,
+.hide-cursor * {
+  cursor: none !important;
+}
+
+/* custom cursor */
+.cursor-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--green);
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: width 0.25s ease, height 0.25s ease, transform 0.1s ease;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(14, 149, 106, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+    height 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.3s ease,
+    background 0.3s ease;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-ring.is-hover {
+  width: 64px;
+  height: 64px;
+  background: rgba(14, 149, 106, 0.08);
+  border-color: var(--green);
+}
+
+.cursor-ring.is-label {
+  width: 96px;
+  height: 96px;
+  border-color: transparent;
+  background: rgba(14, 149, 106, 0.95);
+}
+
+.cursor-label {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--off-white);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cursor-ring.is-label .cursor-label {
+  opacity: 1;
+}
+
+/* No custom cursor on touch devices or small screens */
+@media (max-width: 1023px), (hover: none), (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}
+
+/* Site loader (logo animation) fade-in when started by a link click */
+@keyframes jn-loader-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.jn-loader-fade {
+  animation: jn-loader-fade 0.16s ease-out both;
+}
+
+/* Page transition (legacy classes, unused) */
+.page-mask {
+  position: fixed;
+  inset: 0;
+  background: var(--ink);
+  z-index: 9997;
+  pointer-events: none;
+}
+
+.transition-line {
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--green);
+  z-index: 9998;
+  pointer-events: none;
+  transform-origin: left;
+}
+
+/* Marquee */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+/* Horizontal workflow industry strip */
+@keyframes slide-strip {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.workforce-strip {
+  display: flex;
+  width: max-content;
+  animation: slide-strip 30s linear infinite;
+}
+
+/* Vertical flow */
+@keyframes vertical-line {
+  0% {
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+.vertical-line-anim {
+  transform-origin: top;
+  animation: vertical-line 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+/* Numeric orbit */
+@keyframes orbit-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-counter {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.orbit-rotate {
+  animation: orbit-rotate 60s linear infinite;
+}
+
+.orbit-counter {
+  animation: orbit-counter 60s linear infinite;
+}
+
+/* Hover underline */
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 1px;
+  width: 0;
+  background: currentColor;
+  transition: width 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* Magnetic helper */
+.magnetic-wrap {
+  display: inline-block;
+}
+
+/* Subtle grain texture */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(21, 22, 14, 0.03) 1px, transparent 1px);
+  background-size: 3px 3px;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+}
+
+/* ── JN custom icons (src/components/icons/JNIcon.tsx) ── */
+.jn-icon .jn-accent {
+  stroke: var(--green);
+  transition: stroke 0.5s ease, fill 0.5s ease;
+}
+
+.jn-icon .jn-accent-fill {
+  fill: var(--green);
+  stroke: none;
+  transition: fill 0.5s ease;
+}
+
+/* Icon sitting on a solid green shape: accent turns off-white so it stays visible */
+.jn-icon-on-green .jn-accent {
+  stroke: var(--off-white);
+}
+
+.jn-icon-on-green .jn-accent-fill {
+  fill: var(--off-white);
+}
+
+.jn-badge {
+  color: var(--ink);
+  transition: color 0.5s ease;
+}
+
+.jn-badge-shape {
+  fill: var(--off-white);
+  stroke: var(--rule-strong);
+  stroke-width: 1;
+  transition: fill 0.5s ease, stroke 0.5s ease;
+}
+
+.jn-badge[data-tone="dark"] {
+  color: var(--off-white);
+}
+
+.jn-badge[data-tone="dark"] .jn-badge-shape {
+  fill: var(--ink);
+  stroke: rgba(250, 249, 247, 0.22);
+}
+
+.group:hover .jn-badge .jn-badge-shape,
+.jn-badge[data-active] .jn-badge-shape {
+  fill: var(--green);
+  stroke: var(--green);
+}
+
+.group:hover .jn-badge,
+.jn-badge[data-active] {
+  color: var(--ink);
+}
+
+.group:hover .jn-badge .jn-accent,
+.jn-badge[data-active] .jn-accent {
+  stroke: var(--off-white);
+}
+
+.group:hover .jn-badge .jn-accent-fill,
+.jn-badge[data-active] .jn-accent-fill {
+  fill: var(--off-white);
+}
+
+/* ── Animated icons (inspired by the animated weather-icon set) ──────────────────────────────
+   Each JN icon gets one small loop that matches its meaning. Hooks: `data-icon` on the <svg>,
+   `.jn-accent` / `.jn-accent-fill` on the green part. Loops are slow and small on purpose. */
+.jn-icon .jn-accent,
+.jn-icon .jn-accent-fill {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.jn-icon[data-icon] {
+  overflow: visible;
+}
+
+/* 1 · Accent draws itself, holds, then clears (checks, charts, lines, code…) */
+@keyframes jn-draw {
+  0% { stroke-dashoffset: 1; }
+  35%, 72% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -1; }
+}
+.jn-icon:is([data-icon="recruit"], [data-icon="compliance"], [data-icon="attendance"], [data-icon="check"],
+  [data-icon="growth"], [data-icon="workforce"], [data-icon="tech"], [data-icon="mail"], [data-icon="support"],
+  [data-icon="payroll"], [data-icon="bfsi"], [data-icon="retail"], [data-icon="story"], [data-icon="ecommerce"],
+  [data-icon="candidate"]) .jn-accent {
+  stroke-dasharray: 1;
+  animation: jn-draw 3.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+/* 2 · Briefcase is carried — gentle swing from the handle; the clasp glints */
+@keyframes jn-swing {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+}
+@keyframes jn-glint {
+  0%, 60%, 100% { opacity: 1; transform: scale(1); }
+  70% { opacity: 0.35; transform: scale(0.7); }
+  80% { opacity: 1; transform: scale(1.3); }
+}
+.jn-icon[data-icon="employer"] {
+  transform-origin: 50% 22%;
+  animation: jn-swing 2.8s ease-in-out infinite;
+}
+.jn-icon[data-icon="employer"] .jn-accent-fill {
+  animation: jn-glint 2.8s ease-in-out infinite;
+}
+
+/* 3 · Searching — the lens circles while the person / check inside draws in */
+@keyframes jn-search {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(1.5px, -1.5px) rotate(-7deg); }
+  50% { transform: translate(0, -2.5px) rotate(0deg); }
+  75% { transform: translate(-1.5px, -1.5px) rotate(7deg); }
+}
+.jn-icon:is([data-icon="candidate"], [data-icon="verify"]) {
+  animation: jn-search 3.6s ease-in-out infinite;
+}
+
+/* 4 · Location pin drops and settles; its dot pulses */
+@keyframes jn-drop {
+  0%, 55%, 100% { transform: translateY(0); }
+  65% { transform: translateY(-3px); }
+  75% { transform: translateY(0); }
+  82% { transform: translateY(-1.2px); }
+}
+@keyframes jn-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(0.65); opacity: 0.6; }
+}
+.jn-icon[data-icon="deploy"] {
+  animation: jn-drop 2.6s ease-in-out infinite;
+}
+.jn-icon[data-icon="deploy"] .jn-accent {
+  animation: jn-pulse 2.6s ease-in-out infinite;
+}
+
+/* 5 · Sparkles and diamonds — twinkle or turn */
+@keyframes jn-twinkle {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  50% { transform: scale(0.55) rotate(90deg); opacity: 0.55; }
+}
+@keyframes jn-spin {
+  to { transform: rotate(360deg); }
+}
+.jn-icon[data-icon="talent"] .jn-accent-fill {
+  animation: jn-twinkle 2.4s ease-in-out infinite;
+}
+.jn-icon[data-icon="nexus"] .jn-accent-fill {
+  animation: jn-spin 6s linear infinite;
+}
+
+/* 6 · Continuity — the diamond rides the infinity loop */
+@keyframes jn-ride {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+.jn-icon[data-icon="continuity"] .jn-accent-fill {
+  animation: jn-ride 3.2s ease-in-out infinite;
+}
+
+/* 7 · Breathing / heartbeat for filled accents and signal lines */
+@keyframes jn-breathe {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.88); }
+}
+.jn-icon:is([data-icon="match"], [data-icon="message"]) .jn-accent-fill,
+.jn-icon:is([data-icon="telecom"], [data-icon="manufacturing"], [data-icon="bpo"]) .jn-accent {
+  animation: jn-breathe 2.2s ease-in-out infinite;
+}
+@keyframes jn-heartbeat {
+  0%, 40%, 100% { transform: scale(1); }
+  10% { transform: scale(1.15); }
+  20% { transform: scale(0.96); }
+  30% { transform: scale(1.1); }
+}
+.jn-icon[data-icon="healthcare"] .jn-accent {
+  animation: jn-heartbeat 2s ease-in-out infinite;
+}
+
+/* 8 · Small physical moves */
+@keyframes jn-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1.5px); }
+}
+@keyframes jn-scan {
+  0%, 100% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+}
+@keyframes jn-ring {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  68% { transform: rotate(-10deg); }
+  76% { transform: rotate(8deg); }
+  84% { transform: rotate(-5deg); }
+  92% { transform: rotate(3deg); }
+}
+@keyframes jn-speed {
+  0% { transform: translateX(3px); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateX(-3px); opacity: 0; }
+}
+@keyframes jn-stretch {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(0.6); }
+}
+.jn-icon:is([data-icon="requirement"], [data-icon="construction"]) .jn-accent {
+  animation: jn-bob 2s ease-in-out infinite;
+}
+.jn-icon[data-icon="understand"] .jn-accent {
+  animation: jn-scan 3s ease-in-out infinite;
+}
+.jn-icon[data-icon="hospitality"] {
+  transform-origin: 50% 70%;
+  animation: jn-ring 3s ease-in-out infinite;
+}
+.jn-icon[data-icon="logistics"] {
+  animation: jn-bob 1.4s ease-in-out infinite;
+}
+.jn-icon[data-icon="logistics"] .jn-accent {
+  animation: jn-speed 1.4s linear infinite;
+}
+.jn-icon[data-icon="volume"] .jn-accent {
+  animation: jn-stretch 2.6s ease-in-out infinite;
+}
+.jn-icon[data-icon="pharma"] .jn-accent-fill {
+  animation: jn-breathe 2.4s ease-in-out infinite;
+}
+
+/* ── Client logo row (home "Our clients") — reference: grey logos, colour + lift on hover, others blur.
+   Only on devices that can hover; touch screens show the logos in full colour. */
+.client-logos li {
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+@media (hover: hover) {
+  .client-logos img {
+    filter: grayscale(100%);
+    opacity: 0.55;
+    transition: filter 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
+  .client-logos li:hover img {
+    filter: grayscale(0%);
+    opacity: 1;
+  }
+  .client-logos:hover li:not(:hover) {
+    filter: blur(2px);
+  }
+  .client-logos li:hover {
+    transform: translateY(-0.3rem);
+  }
+  .client-logos li:hover .client-caption {
+    color: var(--dark-green);
+  }
+}
+
+/* Premium button arrow */
+.btn-arrow {
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.group:hover .btn-arrow {
+  transform: translateX(6px);
+}
+
+/* Text clip mask */
+.text-clip {
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(90deg, var(--ink), var(--ink));
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+}
+
+/* Reduced motion: the site's animations are part of its design and stay on (owner's decision, spec §8 R —
+   honouring the OS flag froze them on Windows PCs with "Animation effects" off). Only smooth scrolling is
+   switched off for people who ask for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Small green text (mono labels) uses the darker green on light surfaces so it meets AA contrast
+   (#0E956A on #FAF9F7 is 3.6:1 — fine for headlines, too light for 10–12px labels). */
+.font-mono.text-green {
+  color: var(--dark-green);
+}
+.bg-ink .font-mono.text-green,
+.bg-forest .font-mono.text-green,
+footer .font-mono.text-green,
+.on-dark .font-mono.text-green {
+  color: var(--green);
+}
+
+/* Skip link — visible only when focused */
+.skip-link {
+  position: fixed;
+  left: 16px;
+  top: -80px;
+  z-index: 10001;
+  background: var(--ink);
+  color: var(--off-white);
+  padding: 12px 18px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 16px;
+}
+
+/* Long-form reading (legal pages) */
+.prose-jn {
+  font-size: 16px;
+  line-height: 1.75;
+  color: rgba(21, 22, 14, 0.85);
+}
+.prose-jn > * + * {
+  margin-top: 1.1em;
+}
+.prose-jn ul {
+  list-style: none;
+  padding: 0;
+}
+.prose-jn ul > li {
+  position: relative;
+  padding-left: 1.4em;
+}
+.prose-jn ul > li + li {
+  margin-top: 0.5em;
+}
+.prose-jn ul > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.8em;
+  width: 0.6em;
+  height: 1px;
+  background: var(--green);
+}
+
+/* Focus state */
+:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+button:focus-visible {
+  outline-offset: 2px;
+}
+
+/* Form */
+.field-input {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  padding: 14px 0;
+  width: 100%;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: var(--ink);
+  transition: border-color 0.3s ease;
+}
+
+@media (max-width: 767px) {
+  .field-input {
+    font-size: 16px; /* 16px+ stops iOS Safari zooming the page on focus */
+  }
+}
+
+.field-input:focus {
+  border-bottom-color: var(--green);
+  outline: none;
+}
+
+.field-input::placeholder {
+  color: var(--muted);
+}
+
+/* Utility for ink backgrounds */
+.bg-ink {
+  background-color: var(--ink);
+  color: var(--off-white);
+}
+
+.bg-off-white {
+  background-color: var(--off-white);
+}
+
+.text-green {
+  color: var(--green);
+}
+
+.text-ink {
+  color: var(--ink);
+}
+
+.text-muted {
+  color: var(--muted);
+}
+
+.border-rule {
+  border-color: var(--rule);
+}
+
+.border-rule-strong {
+  border-color: var(--rule-strong);
+}

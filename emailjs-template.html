@@ -1,0 +1,91 @@
+<!-- Job Nexus HR — EmailJS template (paste into Email Templates → Content → "<>" code view).
+     Works for both forms: the site sends form_type, from_name, reply_to, details, page_url, submitted_at. -->
+<div style="margin:0;padding:24px 12px;background-color:#f2f5f3;font-family:Arial,Helvetica,sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;background-color:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e3e8e5;">
+
+    <!-- Header -->
+    <tr>
+      <td style="background-color:#06120f;padding:22px 28px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+          <tr>
+            <td style="font-size:20px;font-weight:bold;color:#ffffff;letter-spacing:-0.3px;">
+              Job Nexus <span style="color:#0E956A;">HR</span>
+            </td>
+            <td align="right" style="font-size:12px;color:#9fb8ae;">
+              Better Talent. <span style="color:#19C48A;">Brighter Futures.</span>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr><td style="height:4px;background-color:#0E956A;line-height:4px;font-size:0;">&nbsp;</td></tr>
+
+    <!-- Title -->
+    <tr>
+      <td style="padding:28px 28px 8px 28px;">
+        <div style="display:inline-block;padding:5px 12px;border-radius:20px;background-color:#e7f5ef;color:#0A6E4F;font-size:11px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;">
+          New {{form_type}}
+        </div>
+        <h1 style="margin:14px 0 6px 0;font-size:22px;line-height:1.3;color:#15160E;">
+          {{from_name}} sent a message
+        </h1>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#5B5D54;">
+          Please reply within one business day — that is the promise on the website.
+        </p>
+      </td>
+    </tr>
+
+    <!-- Sender card -->
+    <tr>
+      <td style="padding:18px 28px 0 28px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e3e8e5;border-radius:12px;">
+          <tr>
+            <td width="56" valign="top" style="padding:16px 0 16px 16px;">
+              <div style="width:44px;height:44px;border-radius:22px;background-color:#0E956A;color:#ffffff;font-size:20px;line-height:44px;text-align:center;">&#128100;</div>
+            </td>
+            <td valign="top" style="padding:16px;">
+              <div style="font-size:16px;font-weight:bold;color:#15160E;">{{from_name}}</div>
+              <div style="margin-top:3px;font-size:14px;">
+                <a href="mailto:{{reply_to}}" style="color:#0A6E4F;text-decoration:none;">{{reply_to}}</a>
+              </div>
+              <div style="margin-top:3px;font-size:12px;color:#8a8f86;">{{submitted_at}}</div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <!-- Details -->
+    <tr>
+      <td style="padding:18px 28px 0 28px;">
+        <div style="font-size:11px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;color:#8a8f86;margin-bottom:8px;">
+          Submission details
+        </div>
+        <div style="background-color:#f6f9f7;border-left:3px solid #0E956A;border-radius:8px;padding:16px 18px;font-size:14px;line-height:1.75;color:#15160E;white-space:pre-line;">{{details}}</div>
+      </td>
+    </tr>
+
+    <!-- Reply button -->
+    <tr>
+      <td style="padding:24px 28px 8px 28px;">
+        <a href="mailto:{{reply_to}}?subject=Re:%20{{subject}}"
+           style="display:inline-block;padding:13px 24px;border-radius:10px;background-color:#042E27;color:#ffffff;font-size:14px;font-weight:bold;text-decoration:none;">
+          Reply to {{from_name}} &rarr;
+        </a>
+        <p style="margin:12px 0 0 0;font-size:12px;color:#8a8f86;">
+          Or simply press Reply — it goes straight to the sender.
+        </p>
+      </td>
+    </tr>
+
+    <!-- Footer -->
+    <tr>
+      <td style="padding:22px 28px;border-top:1px solid #eef1ef;margin-top:16px;">
+        <p style="margin:0;font-size:12px;line-height:1.6;color:#8a8f86;">
+          Sent from <a href="{{page_url}}" style="color:#0A6E4F;">{{page_url}}</a><br />
+          Job Nexus HR website · automatic notification
+        </p>
+      </td>
+    </tr>
+  </table>
+</div>
