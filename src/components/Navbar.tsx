@@ -34,7 +34,7 @@ const servicesActive = (pathname: string) => SERVICES.some((s) => isActive(pathn
 function ServicesPanel({ onNavigate }: { onNavigate: () => void }) {
   const cols = [SERVICES.slice(0, 3), SERVICES.slice(3)];
   return (
-    <div className="grid grid-cols-[280px_minmax(0,1fr)_250px] gap-3 rounded-[22px] border border-rule bg-white p-3 shadow-[0_30px_70px_-30px_rgba(4,46,39,0.35)] 2xl:grid-cols-[minmax(0,1.05fr)_minmax(0,1.1fr)_minmax(0,0.62fr)]">
+    <div className="grid grid-cols-[240px_minmax(0,1fr)] xl:grid-cols-[280px_minmax(0,1fr)_250px] gap-3 rounded-[22px] border border-rule bg-white p-3 shadow-[0_30px_70px_-30px_rgba(4,46,39,0.35)] 2xl:grid-cols-[minmax(0,1.05fr)_minmax(0,1.1fr)_minmax(0,0.62fr)]">
       {/* Intro card with photo */}
       <div className="relative flex min-h-[300px] overflow-hidden rounded-2xl bg-green/[0.07]">
         {/* Wide screens: the supplied artwork fills the card (photo + curve on the left, mint on the right) */}
@@ -95,7 +95,7 @@ function ServicesPanel({ onNavigate }: { onNavigate: () => void }) {
       </div>
 
       {/* Partner card */}
-      <div className="relative flex flex-col justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-green/[0.12] via-green/[0.05] to-white px-7 py-8">
+      <div className="relative hidden flex-col justify-center overflow-hidden rounded-2xl bg-gradient-to-br xl:flex from-green/[0.12] via-green/[0.05] to-white px-7 py-8">
         {/* decorative linework + green sweep on the right edge */}
         <svg aria-hidden viewBox="0 0 200 300" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 h-full w-full">
           <path d="M120 0 L200 70" stroke="rgba(14,149,106,0.25)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
@@ -215,12 +215,12 @@ export function Navbar() {
                 <Logo priority />
               </div>
               {/* Wordmark beside the logo */}
-              <span className="ml-3 text-[18px] font-medium leading-none tracking-[-0.02em] text-ink sm:text-[19px] 2xl:text-[21px]">
+              <span className="ml-3 text-[18px] font-medium leading-none tracking-[-0.02em] text-ink sm:text-[19px] lg:hidden xl:block 2xl:text-[21px]">
                 Job Nexus HR
               </span>
             </Link>
 
-            <nav className="hidden h-full items-stretch gap-1 xl:flex" aria-label="Main">
+            <nav className="hidden h-full items-stretch gap-0.5 lg:flex xl:gap-1" aria-label="Main">
               {NAV.map((item) => {
                 const active = item.mega ? servicesActive(pathname) : isActive(pathname, item.href);
                 const base = cn(
@@ -239,23 +239,35 @@ export function Navbar() {
                   item.label
                 );
                 if (item.mega) {
+                  // "Services" goes to the services page; the chevron (or hovering) opens the menu.
                   return (
-                    <button
+                    <div
                       key={item.href}
-                      type="button"
-                      aria-expanded={mega}
-                      aria-controls="services-panel"
-                      onClick={() => setMega((m) => !m)}
+                      className={cn(base, "gap-0 pr-1")}
                       onPointerEnter={(e) => e.pointerType === "mouse" && openMega()}
-                      className={base}
-                      data-cursor="link"
                     >
-                      {label}
-                      <svg viewBox="0 0 12 12" className={cn("h-3 w-3 transition-transform duration-300", mega && "rotate-180")} fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
-                        <path d="M2.5 4.5 6 8l3.5-3.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
+                      <Link
+                        href={item.href}
+                        aria-current={pathname === item.href ? "page" : undefined}
+                        className="flex h-full items-center"
+                        data-cursor="link"
+                      >
+                        {label}
+                      </Link>
+                      <button
+                        type="button"
+                        aria-label={mega ? "Hide services menu" : "Show services menu"}
+                        aria-expanded={mega}
+                        aria-controls="services-panel"
+                        onClick={() => setMega((m) => !m)}
+                        className="ml-0.5 grid h-8 w-7 place-items-center rounded-md hover:bg-green/10"
+                      >
+                        <svg viewBox="0 0 12 12" className={cn("h-3 w-3 transition-transform duration-300", mega && "rotate-180")} fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
+                          <path d="M2.5 4.5 6 8l3.5-3.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </button>
                       {underline}
-                    </button>
+                    </div>
                   );
                 }
                 return (
@@ -277,7 +289,7 @@ export function Navbar() {
             <div className="flex items-center gap-2">
               <a
                 href={`tel:${CONTACT.tel}`}
-                className="group mr-1 hidden items-center gap-2.5 rounded-xl px-2 py-2 text-[15px] font-medium text-ink transition-colors hover:text-green lg:inline-flex"
+                className="group mr-1 hidden items-center gap-2.5 rounded-xl px-2 py-2 text-[15px] font-medium text-ink transition-colors hover:text-green xl:inline-flex"
                 aria-label={`Call us on ${CONTACT.phone}`}
               >
                 <span className="grid h-9 w-9 place-items-center rounded-full bg-green/10 text-[#0E956A] transition-colors group-hover:bg-green group-hover:text-white">
@@ -300,7 +312,7 @@ export function Navbar() {
                 onClick={() => setOpen(!open)}
                 aria-label={open ? "Close menu" : "Open menu"}
                 aria-expanded={open}
-                className="relative grid h-11 w-11 place-items-center rounded-xl transition-colors hover:bg-green/10 xl:hidden"
+                className="relative grid h-11 w-11 place-items-center rounded-xl transition-colors hover:bg-green/10 lg:hidden"
                 data-cursor="link"
               >
                 <span className={cn("absolute h-[1.5px] w-5 rounded bg-ink transition-transform duration-500", open ? "rotate-45" : "-translate-y-1.5")} />
@@ -320,7 +332,7 @@ export function Navbar() {
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.28, ease: EASE }}
                 onPointerEnter={(e) => e.pointerType === "mouse" && openMega()}
-                className="absolute inset-x-0 top-full hidden pt-2 xl:block"
+                className="absolute inset-x-0 top-full hidden pt-2 lg:block"
               >
                 <ServicesPanel onNavigate={() => setMega(false)} />
               </motion.div>

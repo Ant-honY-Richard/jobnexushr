@@ -51,7 +51,7 @@ export function BrandVisual({
   imgClassName = "block h-auto w-full",
 }: BrandVisualProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.25 });
+  const inView = useInView(ref, { once: true, amount: 0, margin: "0px 0px 30% 0px" });
   const on = play ?? inView;
   const clipId = `jn-frame-${useId().replace(/:/g, "")}`;
   const visual: Visual = VISUALS[asset];

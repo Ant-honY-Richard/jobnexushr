@@ -57,7 +57,7 @@ function RolePortrait({ asset, icon, label, on }: { asset: VisualKey; icon: Icon
 
 export function Team() {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.15 });
+  const inView = useInView(ref, { once: true, amount: 0, margin: "0px 0px 30% 0px" });
   // Tap-to-reveal for touch devices (mouse users get the hover overlay)
   const [open, setOpen] = useState<number | null>(null);
 

@@ -149,7 +149,7 @@ export function SiteLoader() {
       {mode === "intro" && (
         <div className="absolute inset-x-0 top-0 flex items-center justify-between px-6 pt-6 lg:px-12 lg:pt-10">
           <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
-            Job Nexus HR — Est. Operations
+            Job Nexus HR — Recruitment &amp; Staffing
           </span>
           <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
             Loading

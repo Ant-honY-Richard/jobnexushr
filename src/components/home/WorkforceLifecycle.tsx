@@ -52,7 +52,7 @@ const STAGES: { code: string; icon: IconName; name: string; body: string; detail
 export function WorkforceLifecycle() {
   const [active, setActive] = useState<number | null>(null);
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.15 });
+  const inView = useInView(ref, { once: true, amount: 0, margin: "0px 0px 30% 0px" });
 
   return (
     <section

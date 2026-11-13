@@ -22,7 +22,7 @@ const STEPS = [
 
 export function Payroll() {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.2 });
+  const inView = useInView(ref, { once: true, amount: 0, margin: "0px 0px 30% 0px" });
 
   return (
     <section
@@ -33,7 +33,7 @@ export function Payroll() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 gap-x-8">
           <div className="lg:col-span-6">
             <SectionHeader
-              index="/ 08"
+              index="/ 07"
               label="Payroll"
               title={
                 <>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Logo } from "./Logo";
-import { CONTACT } from "@/lib/site";
+import { CONTACT, NO_FEE } from "@/lib/site";
 
 const QUICK = [
   { label: "Home", href: "/" },
@@ -11,6 +11,7 @@ const QUICK = [
   { label: "Employers", href: "/employers" },
   { label: "Candidates", href: "/candidates" },
   { label: "Open roles", href: "/jobs" },
+  { label: "Register for jobs", href: "/register" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -122,6 +123,10 @@ export function Footer() {
             >
               Tell us what you need <span className="btn-arrow">→</span>
             </Link>
+            <p className="mt-5 flex items-center gap-2 text-[14px] text-white/75">
+              <span className="h-1.5 w-1.5 rounded-full bg-green" aria-hidden />
+              Job seekers: {NO_FEE.charAt(0).toLowerCase() + NO_FEE.slice(1)}
+            </p>
           </div>
 
           {/* Quick links */}

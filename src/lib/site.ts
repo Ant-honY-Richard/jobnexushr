@@ -10,4 +10,14 @@ export const CONTACT = {
   phone: "+91 96061 97196",
   tel: "+919606197196",
   city: "Bangalore, India",
+  /** WhatsApp number in international format, digits only (used for wa.me links). Assumed to be the
+   *  same business number — change here if WhatsApp runs on a different number. */
+  whatsapp: "919606197196",
 };
+
+/** Candidate safety line — shown near candidate CTAs and in the footer. */
+export const NO_FEE = "We never charge candidates any fee.";
+
+/** wa.me link with a prefilled message. */
+export const whatsappLink = (text: string) =>
+  `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(text)}`;

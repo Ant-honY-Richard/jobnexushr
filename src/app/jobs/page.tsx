@@ -6,6 +6,7 @@ import Link from "next/link";
 import { and, desc, eq, ilike } from "drizzle-orm";
 import { JOB_INDUSTRIES, JOB_TYPES } from "@/lib/job-filters";
 import { JNIcon } from "@/components/icons/JNIcon";
+import { NO_FEE, whatsappLink } from "@/lib/site";
 
 export const metadata = {
   title: "Jobs — Job Nexus HR",
@@ -81,13 +82,16 @@ export default async function JobsPage({
             <span className="text-green">real recruiters.</span>
           </>
         }
-        description="Browse current openings and apply in a few minutes. A recruiter will get back to you personally."
+        description="See current openings — or register once and a recruiter calls you when a matching role opens. We never charge candidates any fee."
         visual={{ asset: "page-jobs", icon: "talent", label: "Open Roles" }}
         swoosh
       />
 
       <section className="bg-off-white py-12 lg:py-16">
         <div className="mx-auto px-6 lg:px-10" style={{ maxWidth: "1480px" }}>
+          {/* Filters only make sense when there are roles (or a search is active) */}
+          {(allJobs.length > 0 || hasFilters) && (
+            <>
           {/* Search card — same rounded, icon-led fields as the contact form */}
           <form
             action="/jobs"
@@ -158,6 +162,9 @@ export default async function JobsPage({
             )}
           </div>
 
+            </>
+          )}
+
           {allJobs.length === 0 ? (
             <div className="relative overflow-hidden rounded-[24px] border border-ink/10 bg-gradient-to-br from-green/[0.07] via-white to-white px-6 py-12 text-center lg:p-16">
               <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-green/12 text-[#0E956A]">
@@ -171,17 +178,25 @@ export default async function JobsPage({
               </h2>
               <p className="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-muted">
                 {hasFilters
-                  ? "Try fewer filters, or tell us what you’re looking for and we’ll contact you when something matches."
-                  : "We add roles as new client positions open. Tell us what you’re looking for and we’ll contact you when something matches."}
+                  ? "Try fewer filters — or register once and we’ll call you when something matches."
+                  : "New roles open as our clients hire. Register once (about 30 seconds) and a recruiter will call you when a role matches."}
               </p>
               <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
                 <Link
-                  href="/contact"
+                  href="/register"
                   data-cursor="cta"
                   className="group inline-flex items-center justify-center gap-3 rounded-xl bg-forest px-6 py-3.5 text-[15px] font-semibold text-white transition-colors duration-500 hover:bg-green"
                 >
-                  Tell us what you&apos;re looking for <span className="btn-arrow">→</span>
+                  Register for jobs <span className="btn-arrow">→</span>
                 </Link>
+                <a
+                  href={whatsappLink("Hi Job Nexus HR, I'm looking for a job. My name is ")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-6 py-3.5 text-[15px] font-semibold text-white transition-transform hover:scale-[1.02]"
+                >
+                  WhatsApp us
+                </a>
                 <Link
                   href="/candidates"
                   data-cursor="link"
@@ -190,6 +205,7 @@ export default async function JobsPage({
                   How we help candidates <span className="btn-arrow">→</span>
                 </Link>
               </div>
+              <p className="mt-6 text-[13px] font-medium text-dark-green">{NO_FEE}</p>
             </div>
           ) : (
             <ul className="border-t border-ink">

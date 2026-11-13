@@ -3,15 +3,15 @@ export const JOB_INDUSTRIES = [
   "IT & Technology",
   "BFSI",
   "Healthcare",
+  "Pharma",
   "Manufacturing",
   "Retail",
   "E-commerce",
   "Logistics",
-  "Warehousing",
   "Hospitality",
   "Telecom",
+  "Construction",
   "BPO / KPO",
-  "Professional Services",
 ];
 
 export const JOB_TYPES = ["Permanent", "Contract", "Volume"];

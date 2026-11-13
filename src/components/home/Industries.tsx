@@ -73,7 +73,7 @@ const INDUSTRIES: { name: string; icon: IconName; roles: string[] }[] = [
 export function Industries() {
   const [active, setActive] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.2 });
+  const inView = useInView(ref, { once: true, amount: 0, margin: "0px 0px 30% 0px" });
   const current = INDUSTRIES[active];
 
   return (

@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import { CustomCursor } from "@/components/CustomCursor";
 import { SiteLoader } from "@/components/SiteLoader";
 import { MotionProvider } from "@/components/MotionProvider";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { SITE_URL } from "@/lib/site";
 
 export const viewport: Viewport = {
@@ -61,6 +62,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             {children}
           </main>
           <Footer />
+          <WhatsAppButton />
         </MotionProvider>
       </body>
     </html>

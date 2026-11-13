@@ -7,7 +7,7 @@ import { BrandVisual } from "../visual/BrandVisual";
 
 export function CTA() {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.3 });
+  const inView = useInView(ref, { once: true, amount: 0, margin: "0px 0px 30% 0px" });
 
   return (
     <section
@@ -117,12 +117,12 @@ export function CTA() {
               For candidates
             </p>
             <Link
-              href="/jobs"
+              href="/register"
               data-cursor="cta"
-              data-cursor-label="Find a job"
+              data-cursor-label="Register"
               className="group inline-flex items-center gap-4 border border-off-white/15 px-6 py-4 font-mono text-[11px] uppercase tracking-[0.18em] hover:border-green hover:text-green transition-all duration-500"
             >
-              Browse open roles <span className="btn-arrow">→</span>
+              Register for jobs <span className="btn-arrow">→</span>
             </Link>
           </motion.div>
 

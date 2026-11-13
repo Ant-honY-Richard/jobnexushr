@@ -61,6 +61,7 @@ npx tsx scripts/seed.ts     # insert 4 sample jobs (needs DATABASE_URL)
 | `/workforce-management` | `src/app/workforce-management/page.tsx` | static | 6 lifecycle stages + 6 modules |
 | `/payroll` | `src/app/payroll/page.tsx` | static | 4-step monthly `CYCLE` + 6-item scope table |
 | `/employers` | `src/app/employers/page.tsx` | static | 5-step journey + `ServiceFinder` + 5 commitments |
+| `/register` | `src/app/register/page.tsx` | static | Candidate registration (30s form via EmailJS, no-fee promise, WhatsApp alternative) |
 | `/candidates` | `src/app/candidates/page.tsx` | static | Job-search form (GET → `/jobs`, filters from `lib/job-filters.ts`) + "After you apply" + 6 candidate services |
 | `/jobs` | `src/app/jobs/page.tsx` | dynamic | Reads `jobs` table; **filters work** via `?q=&location=&industry=&type=` |
 | `/jobs/[id]` | `src/app/jobs/[id]/page.tsx` | dynamic | Job detail + application form (server action) |
@@ -222,6 +223,24 @@ update `width/height` in `Logo.tsx` if the aspect ratio changes.
 ## 7. Change Log
 
 Newest first. One row per change; keep entries short and name the files.
+
+### 2026-11-12 — UI/UX & psychology audit fixes (non-database items)
+Source: "Job Nexus HR – UI/UX & Psychology Audit" (12 Nov 2026). Job posting/DB items deferred by the owner.
+
+| # | Change | Files |
+|---|---|---|
+| 130 | **Candidate path no longer ends at "0 roles"**: every "Browse open roles" / "Find your next role" CTA now says **Register for jobs** → new **`/register`** page (30-second form: name, phone, city, job type, experience, optional email / CV link / note) emailed via EmailJS as "candidate registration"; fallback message offers WhatsApp/phone if sending fails. On `/jobs`, the filters are hidden while no roles exist (shown again when roles exist or a search is active); the empty state offers Register + WhatsApp + "How we help candidates" | `app/register/page.tsx` (new), `RegisterForm.tsx` (new), `jobs/page.tsx`, `home/Hero.tsx`, `home/Audience.tsx`, `home/CTA.tsx`, `candidates/page.tsx`, `sitemap.ts` |
+| 131 | **Candidate safety line** "We never charge candidates any fee." (`NO_FEE` in `lib/site.ts`) near candidate CTAs (home hero, Start-here candidate half, jobs, candidates, register — with an anti-fraud note) and in the footer | `lib/site.ts`, several pages |
+| 132 | **Floating WhatsApp button** on every page with a chooser ("I'm hiring" / "I'm looking for work") and prefilled messages; `CONTACT.whatsapp` = 919606197196 (assumed same as the business number) | `WhatsAppButton.tsx` (new), `layout.tsx`, `lib/site.ts` |
+| 133 | **Home hero**: candidate CTA is now a full outlined button equal to the employer one (both full-width on phones); no-fee microcopy under them; tablet photo capped at 38vh so the headline and CTAs appear sooner; tag changed from "People / Process / Progress" to concrete "Find / Verify / Support" (shown from 1280px) | `home/Hero.tsx` |
+| 134 | **Shorter home page** (~16% shorter): removed the repeated value marquee and the two extra process explanations (Workforce lifecycle stages, 6-step Process) — "How it works" in the hero remains; full detail lives on Workforce/Services/Employers pages. Payroll renumbered /07. Components kept for reuse | `app/page.tsx`, `home/Payroll.tsx` |
+| 135 | **No blank screens while scrolling**: every scroll reveal now triggers 30% before the section enters the screen (`useInView … margin: "0px 0px 30% 0px"`) | all components using `useInView` |
+| 136 | **Consistency**: hero ticker, home Industries explorer and job filters use the same 12 sectors (IT & Technology, BFSI, Healthcare, Pharma, Manufacturing, Retail, E-commerce, Logistics, Hospitality, Telecom, Construction, BPO/KPO); loader no longer says "Est." without a year | `home/Hero.tsx`, `lib/job-filters.ts`, `SiteLoader.tsx` |
+| 137 | **Navbar**: "Services" is a real link to /staffing (the chevron/hover opens the menu); full nav now from 1024px (burger below); phone number from 1280px; Services panel drops the partner card at 1024–1279px | `Navbar.tsx` |
+
+**Not done — needs facts only the owner has** (listed in §8 V): testimonials, a case study with numbers, licences/registrations (CLRA, GST, PF/ESI), founding year, turnaround promises (shortlist/deploy times), real site/team photos, Hindi/regional pages, analytics funnel. Reduced-motion was left as the owner decided (§8 R).
+
+Checked: `tsc` + `eslint` clean; production build OK (23 routes incl. /register); home at 375/800/1024/1440, jobs and register at 375/1440 — no horizontal scroll at phone/tablet widths; register form fallback tested.
 
 ### 2026-11-07 (later) — Contact page redesign
 | # | Change | Files |
@@ -490,3 +509,4 @@ Checked: `tsc` + `eslint` clean, `next build` OK (run with `--webpack` in a copy
 | T | **6 photo slots still show designed fallback art**: 5 team cards (Team section is currently off the home page) and Contact (uses its own sketch instead) — none are visible on the site today. Images cut from mockups are sharp on standard screens, slightly soft on retina | Nothing visible needs an image now |
 | U | **"Start here" images are cut from the mockup** (~900 px wide, likely AI-generated, note cards baked in so their text isn't live). Fine on screens up to ~1440 px at 1×; slightly soft on retina/very wide screens. For launch, supply the two original photos at ≥1800 px and the frames/cards can be rebuilt in code (the previous live-card version is in change #66) | Needs originals if you want sharper images |
 | O | ~~Logo PNGs are ~340 KB / ~280 KB~~ — resolved 2026-10-27: logo is now an inline SVG; PNGs 53 KB | Done |
+| V | **Audit items that need the owner's facts** (from the 12 Nov 2026 UI/UX audit): 2–3 named testimonials, one case study with real numbers, compliance strip (CLRA licence, GST, PF/ESI registration, ISO if any), real founding year, employer turnaround promises (shortlist / first deployment — only if true), real photos of sites/teams/recruiters, Hindi/regional candidate pages, analytics funnel. Also confirm: the WhatsApp number (assumed +91 96061 97196) and the "We never charge candidates any fee" policy | Send the facts/photos; each slot is a small addition |

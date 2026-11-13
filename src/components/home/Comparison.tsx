@@ -25,7 +25,7 @@ const JOB_NEXUS = [
 export function Comparison() {
   const [view, setView] = useState<"traditional" | "us">("us");
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.2 });
+  const inView = useInView(ref, { once: true, amount: 0, margin: "0px 0px 30% 0px" });
 
   return (
     <section

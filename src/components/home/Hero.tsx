@@ -6,21 +6,20 @@ import { getImageProps } from "next/image";
 import { useLoaderReady } from "@/lib/loader-state";
 import { JNIcon, type IconName } from "../icons/JNIcon";
 
+// Same 12 sectors as the home Industries explorer and the job filters.
 const INDUSTRIES = [
-  "OFFICE",
-  "WAREHOUSE",
-  "RETAIL",
+  "IT & TECHNOLOGY",
+  "BFSI",
   "HEALTHCARE",
+  "PHARMA",
   "MANUFACTURING",
+  "RETAIL",
+  "E-COMMERCE",
   "LOGISTICS",
   "HOSPITALITY",
-  "TECHNOLOGY",
-  "CONSTRUCTION",
-  "FINANCE",
-  "PHARMA",
-  "BFSI",
-  "EDUCATION",
   "TELECOM",
+  "CONSTRUCTION",
+  "BPO / KPO",
 ];
 
 const EASE = [0.65, 0, 0.35, 1] as const;
@@ -35,7 +34,7 @@ function HeroPhoto() {
     <picture>
       <source media="(min-width: 1024px)" srcSet={desktop.props.srcSet} sizes="50vw" />
       <source srcSet={mobileSrcSet} sizes="100vw" />
-      <img {...img} alt={alt} className="block h-auto w-full select-none" draggable={false} />
+      <img {...img} alt={alt} className="block h-auto w-full select-none md:h-[38vh] md:object-cover md:object-[50%_30%] lg:h-auto lg:object-fill" draggable={false} />
     </picture>
   );
 }
@@ -120,7 +119,7 @@ export function Hero() {
                   <Link
                     href="/contact"
                     data-cursor="cta"
-                    className="learn-more group relative inline-block h-14 w-[17.5rem] outline-none lg:h-16 lg:w-[19.5rem]"
+                    className="learn-more group relative inline-block h-14 w-full outline-none sm:w-[17.5rem] lg:h-16 lg:w-[19.5rem]"
                   >
                     {/* Circle grows into a full pill on hover/focus; the arrow slides; the label turns white */}
                     <span
@@ -136,24 +135,28 @@ export function Hero() {
                     </span>
                   </Link>
                   <Link
-                    href="/jobs"
-                    className="group mt-5 flex items-center gap-2 text-[13px] text-muted transition-colors hover:text-green"
+                    href="/register"
+                    data-cursor="cta"
+                    className="group mt-3 flex h-14 w-full items-center justify-center gap-3 rounded-full border-2 border-green px-7 text-[13px] font-semibold uppercase tracking-[0.14em] text-ink transition-colors duration-300 hover:bg-green hover:text-white sm:w-[17.5rem] lg:h-16 lg:w-[19.5rem] lg:text-[14px]"
                   >
-                    Looking for work? <span className="text-ink group-hover:text-green">Browse open roles</span>
-                    <span className="btn-arrow">→</span>
+                    Register for jobs <span className="btn-arrow">→</span>
                   </Link>
+                  <p className="mt-3 flex items-center gap-2 text-[13px] text-muted">
+                    <span className="h-1.5 w-1.5 rounded-full bg-green" aria-hidden />
+                    Looking for work? Free for job seekers — we never charge any fee.
+                  </p>
                 </motion.div>
 
-                {/* People · Process · Progress tag */}
+                {/* What we do, in three words (desktop only) */}
                 <motion.ul
                   initial={{ opacity: 0 }}
                   animate={{ opacity: ready ? 1 : 0 }}
                   transition={{ duration: 0.8, delay: 0.8 }}
-                  className="flex gap-x-5 border-l-2 border-green py-1 pl-4 font-mono text-[10px] uppercase leading-relaxed tracking-[0.18em] text-muted sm:block sm:space-y-1 sm:text-[11px] lg:absolute lg:bottom-10 lg:right-10 2xl:right-[max(2.5rem,calc((100vw-1480px)/2+2.5rem))]"
+                  className="hidden space-y-1 border-l-2 border-green py-1 pl-4 font-mono text-[11px] uppercase leading-relaxed tracking-[0.18em] text-muted xl:absolute xl:bottom-10 xl:right-28 xl:block 2xl:right-[max(2.5rem,calc((100vw-1480px)/2+2.5rem))]"
                 >
-                  <li>People</li>
-                  <li>Process</li>
-                  <li>Progress</li>
+                  <li>Find</li>
+                  <li>Verify</li>
+                  <li>Support</li>
                 </motion.ul>
               </div>
             </div>

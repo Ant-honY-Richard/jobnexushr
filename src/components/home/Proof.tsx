@@ -36,7 +36,7 @@ const TRUST: { icon: IconName; head: string; body: string }[] = [
 
 export function Proof() {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.2 });
+  const inView = useInView(ref, { once: true, amount: 0, margin: "0px 0px 30% 0px" });
 
   return (
     <section ref={ref} className="relative overflow-hidden border-t border-rule bg-off-white py-14 lg:py-24">

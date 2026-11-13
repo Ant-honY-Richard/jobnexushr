@@ -17,7 +17,7 @@ export function RevealText({
   as = "div",
 }: RevealTextProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.4 });
+  const inView = useInView(ref, { once: true, amount: 0, margin: "0px 0px 30% 0px" });
 
   const commonProps = {
     initial: { y: 40, opacity: 0 },

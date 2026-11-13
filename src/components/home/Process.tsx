@@ -17,7 +17,7 @@ const STEPS: { code: string; icon: IconName; name: string; body: string }[] = [
 
 export function Process() {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.15 });
+  const inView = useInView(ref, { once: true, amount: 0, margin: "0px 0px 30% 0px" });
 
   return (
     <section ref={ref} className="relative bg-off-white py-14 lg:py-24 border-t border-rule">

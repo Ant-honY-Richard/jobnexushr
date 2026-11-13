@@ -6,6 +6,7 @@ import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 import { SectionHeader } from "../SectionHeader";
 import { JNIcon, type IconName } from "../icons/JNIcon";
+import { NO_FEE } from "@/lib/site";
 
 const EASE = [0.65, 0, 0.35, 1] as const;
 
@@ -85,7 +86,7 @@ function Pill({ n, label, icon, dark }: { n: string; label: string; icon: IconNa
 
 export function Audience() {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.1 });
+  const inView = useInView(ref, { once: true, amount: 0, margin: "0px 0px 30% 0px" });
 
   const rise = (delay: number) => ({
     initial: { opacity: 0, y: 24 },
@@ -271,7 +272,7 @@ export function Audience() {
           </ul>
 
           {/* Photo */}
-          <Link href="/jobs" aria-label="Find your next role" className="relative mt-10 block sm:mt-12 lg:mt-10">
+          <Link href="/register" aria-label="Register for jobs" className="relative mt-10 block sm:mt-12 lg:mt-10">
             <motion.div {...rise(0.55)}>
               {/* Phones: rounded crop, green ribbon, card overlapping bottom-left */}
               <div className="relative pb-12 sm:hidden">
@@ -327,12 +328,16 @@ export function Audience() {
             <p className="mt-4 max-w-md text-[17px] leading-relaxed text-off-white/80">
               Starting out or ready for your next step — we&apos;ll help you find work that fits.
             </p>
+            <p className="mt-3 inline-flex items-center gap-2 rounded-full bg-green/15 px-3 py-1.5 text-[13px] font-medium text-off-white ring-1 ring-green/40">
+              <span className="h-1.5 w-1.5 rounded-full bg-green" aria-hidden />
+              {NO_FEE}
+            </p>
             <Link
-              href="/jobs"
+              href="/register"
               data-cursor="cta"
               className="group mt-8 flex w-full items-center justify-center gap-3 rounded-2xl border-2 border-green px-8 py-5 text-[13px] font-semibold uppercase tracking-[0.12em] text-off-white transition-colors duration-500 hover:bg-green hover:text-ink sm:inline-flex sm:w-auto"
             >
-              Find your next role <span className="btn-arrow">→</span>
+              Register for jobs <span className="btn-arrow">→</span>
             </Link>
           </motion.div>
         </div>

@@ -26,12 +26,12 @@ Status key: **Built** = exists in the code · **Launch** = needed to go live, no
 
 | Bucket | Estimate | Actual |
 |---|---:|---:|
-| One-time build (319 h × ₹1,000) — §2 | **₹3,19,000** | |
+| One-time build (325 h × ₹1,000) — §2 | **₹3,25,000** | |
 | Running cost to launch, per year — §3 | **₹21,600 / yr** | |
-| **Year-1 total (build + running)** | **₹3,40,600** | |
+| **Year-1 total (build + running)** | **₹3,46,600** | |
 | *Pending one-time add-ons (not included above) — §4* | *₹90,000* | |
 | *Pending recurring add-ons (not included above) — §4* | *₹4,800 / yr* | |
-| *Year-1 total if every pending item is added* | *₹4,35,400* | |
+| *Year-1 total if every pending item is added* | *₹4,41,400* | |
 
 ---
 
@@ -147,7 +147,7 @@ Rate assumption: **₹1,000/h**. `Est. ₹ = Hours × 1,000`.
 | Interactive form: progress, choice cards, floating labels, prompt chips, QA | Built | 2 | 2,000 | | |
 | Rest of contact page matched to the form (cards, photo card, next-steps track), QA | Built | 2 | 2,000 | | |
 
-**One-time build total: 36 + 105 + 12 + 60 + 55 + 16 + 6 + 5 + 4 + 8 + 2 + 1 + 1.5 + 2 + 2 + 1.5 + 1 + 1 = 319 h → ₹3,19,000**
+**One-time build total: 36 + 105 + 12 + 60 + 55 + 16 + 6 + 5 + 4 + 8 + 2 + 1 + 1.5 + 2 + 2 + 1.5 + 1 + 1 + 6 = 325 h → ₹3,25,000**
 
 ---
 
@@ -192,6 +192,7 @@ add the actual when known.
 
 | Date | Item added / changed | Type (one-time / recurring / removal) | Est. ₹ | Actual ₹ | Change Log # in spec.md | Notes |
 |---|---|---|---:|---:|---|---|
+| 2026-11-12 | Audit fixes: /register + candidate CTAs, no-fee line, WhatsApp button, hero rework, shorter home, earlier reveals, consistent sectors, navbar | one-time | 6,000 | | 130–137 | DB/job posting deferred |
 | 2026-11-11 | Client logo row in the reference style (grey → colour hover, blur siblings) | one-time | 0 | | 129 | Within the previous redesign estimate |
 | 2026-11-11 | Official client logos + clients section redesign | one-time | 1,000 | | 128 | |
 | 2026-11-11 | Client logos (Pronto, Elastic Run) cut and added | one-time | 0 | | 127 | Under 30 min |

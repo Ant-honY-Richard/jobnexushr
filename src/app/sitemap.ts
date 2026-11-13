@@ -14,6 +14,7 @@ const ROUTES = [
   "/payroll",
   "/employers",
   "/candidates",
+  "/register",
   "/jobs",
   "/contact",
   "/privacy",

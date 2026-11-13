@@ -70,7 +70,7 @@ export default function CandidatesPage() {
             <span className="text-green">on your side.</span>
           </>
         }
-        description="Browse open roles, talk to a real recruiter and get honest advice on what fits you."
+        description="Register once, talk to a real recruiter and get honest advice on what fits you. We never charge candidates any fee."
         visual={{ asset: "page-candidates", icon: "candidate", label: "For Candidates" }}
       />
 
@@ -215,8 +215,8 @@ export default function CandidatesPage() {
       <CTASection
         title="Find your next role."
         subtitle="Real roles, honest advice and a real person on the other side."
-        primaryHref="/jobs"
-        primaryLabel="Browse open roles"
+        primaryHref="/register"
+        primaryLabel="Register for jobs"
         secondaryHref="/contact"
         secondaryLabel="Talk to a recruiter"
       />
