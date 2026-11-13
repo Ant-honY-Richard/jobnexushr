@@ -5,7 +5,7 @@
 > **After every change:** add a row to the [Change Log](#7-change-log), update the relevant
 > section, and add/adjust the matching row in [`PRICING.md`](PRICING.md).
 
-Last updated: 2026-11-07 (contact page redesign; contact details and animations before it)
+Last updated: 2026-11-13 (SEO, structured data, GA4 + Search Console; contact page redesign before it)
 
 ---
 
@@ -41,7 +41,9 @@ npx tsx scripts/seed.ts     # insert 4 sample jobs (needs DATABASE_URL)
 | Var | Needed for | Notes |
 |---|---|---|
 | `DATABASE_URL` | `/contact`, `/jobs`, `/jobs/[id]`, `/api/health`, seed | Not needed to build or to view static pages |
-| `NEXT_PUBLIC_SITE_URL` | canonical/OG URLs, `sitemap.xml`, `robots.txt` | Falls back to placeholder `https://jobnexus.example` |
+| `NEXT_PUBLIC_SITE_URL` | canonical/OG URLs, `sitemap.xml`, `robots.txt`, JSON-LD | Defaults to `https://www.jobnexushr.com` (was the placeholder `jobnexus.example` until #130) |
+| `NEXT_PUBLIC_GA_ID` | Google Analytics 4 tag | Defaults to `GTM-WWJ87LXS` (GA4 property "Job Nexus HR Website", stream 16333979074, owner anthonyrichard@jobnexushr.com). Set to empty to turn analytics off |
+| `NEXT_PUBLIC_GSC_VERIFICATION` | Optional Search Console meta-tag token | Not needed — Search Console is verified by the file `public/google57be15b428bba9bc.html` (**never delete it**) |
 | `NEXT_PUBLIC_EMAILJS_SERVICE_ID`, `NEXT_PUBLIC_EMAILJS_TEMPLATE_ID`, `NEXT_PUBLIC_EMAILJS_PUBLIC_KEY` | Emailing form submissions to anthonyrichard@jobnexushr.com | Public by design; lock the domain in EmailJS. Without them forms only save to the DB. See `EMAILJS-SETUP.md` |
 
 > `drizzle.config.json` has a hard-coded local DB URL (`postgres:postgres@127.0.0.1/app_db`) — for
@@ -68,7 +70,9 @@ npx tsx scripts/seed.ts     # insert 4 sample jobs (needs DATABASE_URL)
 | `/contact` | `src/app/contact/page.tsx` | dynamic | Custom hero (no PageHero): sticky left column (contact cards + office photo card), form card (server action), "What happens next" progress track |
 | `/privacy`, `/terms`, `/cookies` | `src/app/{privacy,terms,cookies}/page.tsx` | static | Short summary legal pages rendered through `LegalPage` (sections array) |
 | `/api/health` | `src/app/api/health/route.ts` | dynamic | `{ok:true}` / 500 if DB unreachable |
-| `/robots.txt`, `/sitemap.xml` | `src/app/robots.ts`, `sitemap.ts` | generated | Uses `NEXT_PUBLIC_SITE_URL` |
+| `/robots.txt`, `/sitemap.xml` | `src/app/robots.ts`, `sitemap.ts` | generated | Uses `SITE_URL`; robots explicitly allows AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended…) |
+| `/llms.txt` | `public/llms.txt` | static | Plain-text company summary for AI search tools — keep services/contact in sync with the site |
+| `/google57be15b428bba9bc.html` | `public/` | static | Google Search Console ownership file — do not remove |
 | 404 | `src/app/not-found.tsx` | — | Custom |
 
 **Adding a static route to the sitemap:** append it to `ROUTES` in `src/app/sitemap.ts`.
@@ -223,6 +227,19 @@ update `width/height` in `Logo.tsx` if the aspect ratio changes.
 ## 7. Change Log
 
 Newest first. One row per change; keep entries short and name the files.
+
+### 2026-11-13 — SEO, structured data, GA4 + Search Console
+| # | Change | Files |
+|---|---|---|
+| 138 | **Placeholder domain fixed**: `SITE_URL` now defaults to `https://www.jobnexushr.com` — sitemap, robots, canonical and OG URLs no longer point at `jobnexus.example` (production had no `NEXT_PUBLIC_SITE_URL`). Added `SOCIAL` (LinkedIn, Instagram), `GA_ID`, `GSC_VERIFICATION` | `lib/site.ts`, `.env.example` |
+| 139 | **Metadata rewrite for search**: keyword-led titles ("Recruitment & Staffing Agency in Bangalore", "Hire Staff in Bangalore & India", "Payroll Outsourcing & PF/ESI…", service pages "… Services in Bangalore & India"), longer descriptions, a self-referencing `canonical` on every page (incl. service + job pages), robots max-snippet/large image preview, `en_IN` locale, Twitter card | `layout.tsx`, every `page.tsx`, `staffing/[slug]/page.tsx`, `jobs/[id]/page.tsx` |
+| 140 | **Structured data (JSON-LD)**: site-wide `Organization` + `EmploymentAgency` (name, legal name, logo, slogan, founded 2026, phone, email, Bengaluru/Karnataka/India area served, sameAs LinkedIn/Instagram, offer catalog of the 6 services) and `WebSite`; `Service` + `BreadcrumbList` on each service page; `JobPosting` on job pages (Google for Jobs). New `JsonLd` component and `lib/seo.ts` builders | `components/JsonLd.tsx`, `lib/seo.ts`, `layout.tsx`, `staffing/[slug]/page.tsx`, `jobs/[id]/page.tsx` |
+| 141 | **New share image** `public/og.png` (1200×630, logo + tagline + services) replaces the square logo for link previews | `public/og.png`, `layout.tsx` |
+| 142 | **AI search readiness**: `public/llms.txt` company summary; robots.txt lists AI crawlers explicitly; sitemap gets `lastModified` | `public/llms.txt`, `robots.ts`, `sitemap.ts` |
+| 143 | **Google Analytics 4** installed (`Analytics` client component, loads after hydration): page views plus `contact_click` (tel/mailto/WhatsApp links) and `generate_lead` (any POST form — contact, job application). Supports the 2026 `GTM-…` Google tag snippet and classic `G-…`. Cookies page now names Google Analytics 4 (resolves §8 D) | `components/Analytics.tsx`, `layout.tsx`, `cookies/page.tsx` |
+| 144 | **Search Console** ownership file `public/google57be15b428bba9bc.html` (URL-prefix property `https://www.jobnexushr.com/`, owner anthonyrichard@jobnexushr.com). Verify in Search Console after deploy, then submit `sitemap.xml` | `public/google57be15b428bba9bc.html` |
+
+Checked: `tsc` + `eslint` clean; `next build` OK; production server: canonical, title, `og.png`, two JSON-LD blocks (valid JSON), GA tag, robots/sitemap on jobnexushr.com, `/llms.txt` and the verification file return 200.
 
 ### 2026-11-12 — UI/UX & psychology audit fixes (non-database items)
 Source: "Job Nexus HR – UI/UX & Psychology Audit" (12 Nov 2026). Job posting/DB items deferred by the owner.
@@ -490,7 +507,7 @@ Checked: `tsc` + `eslint` clean, `next build` OK (run with `--webpack` in a copy
 | A | ~~Placeholder contact email~~ | **Resolved 2026-11-07 (#100)** — `info@jobnexushr.com`, set in `lib/site.ts` |
 | B | **Form emails are built (EmailJS, #122) but need your keys** — until the three `NEXT_PUBLIC_EMAILJS_*` values are set, submissions are not emailed | Follow `EMAILJS-SETUP.md` (≈10 min), then send a test from /contact |
 | C | **No admin UI** to add/close jobs or read submissions; jobs come from `scripts/seed.ts` or SQL | Product decision |
-| D | **Cookies page mentions analytics cookies but no analytics is installed** | Either install analytics or edit the wording |
+| D | ~~Cookies page mentions analytics cookies but no analytics is installed~~ | **Resolved 2026-11-13 (#135)** — GA4 installed and named on the Cookies page |
 | E | **Client names "Pronto" and "Elastic Run"** shown as direct clients (`home/Proof.tsx`, replaced Swiggy/Blinkit 2026-11-11). Official logos in place (Elastic Run SVG, Pronto tile) | Confirm you may display their names and logos |
 | F | Legal pages are generic summaries (Privacy states "not legal advice") | Needs review by counsel |
 | G | Headquarters shows "Bangalore, India" (#108); no street address yet | Needs the address |

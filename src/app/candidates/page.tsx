@@ -3,8 +3,10 @@ import { JOB_INDUSTRIES, JOB_TYPES } from "@/lib/job-filters";
 import { CTASection } from "@/components/CTASection";
 
 export const metadata = {
-  title: "For Candidates — Job Nexus HR",
-  description: "Find your next role with a partner who treats candidates like people, not applications.",
+  title: "Find Jobs in Bangalore & Across India | Job Nexus HR",
+  description:
+    "Looking for work? Job Nexus HR matches you to genuine roles with real employers. A recruiter who calls you back, honest role details and support after you join.",
+  alternates: { canonical: "/candidates" },
 };
 
 const WHAT_WE_DO = [

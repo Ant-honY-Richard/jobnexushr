@@ -3,8 +3,10 @@ import { SignatureLine } from "@/components/SignatureLine";
 import { CTASection } from "@/components/CTASection";
 
 export const metadata = {
-  title: "Industries — Job Nexus HR",
-  description: "Workforce capability across IT, BFSI, healthcare, pharma, manufacturing, retail, e-commerce, logistics, hospitality, telecom, construction and more.",
+  title: "Industries We Hire For | IT, BFSI, Logistics, Retail & More | Job Nexus HR",
+  description:
+    "Recruitment and staffing across IT, BFSI, healthcare, pharma, manufacturing, retail, e-commerce, logistics, warehousing, hospitality, telecom, construction and BPO/KPO.",
+  alternates: { canonical: "/industries" },
 };
 
 const INDUSTRIES = [

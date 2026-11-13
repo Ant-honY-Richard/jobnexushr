@@ -9,8 +9,10 @@ import { JNIcon } from "@/components/icons/JNIcon";
 import { NO_FEE, whatsappLink } from "@/lib/site";
 
 export const metadata = {
-  title: "Jobs — Job Nexus HR",
-  description: "Explore open positions across industries, supported by Job Nexus HR.",
+  title: "Open Jobs | Warehouse, Retail, Office & IT Roles | Job Nexus HR",
+  description:
+    "Browse current openings from Job Nexus HR and apply in a few minutes. A recruiter gets back to you personally.",
+  alternates: { canonical: "/jobs" },
 };
 
 export const dynamic = "force-dynamic";

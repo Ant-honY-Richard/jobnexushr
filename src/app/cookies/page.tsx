@@ -1,6 +1,6 @@
 import { LegalPage } from "@/components/LegalPage";
 
-export const metadata = { title: "Cookies — Job Nexus HR" };
+export const metadata = { title: "Cookies — Job Nexus HR", alternates: { canonical: "/cookies" } };
 
 export default function CookiesPage() {
   return (
@@ -28,8 +28,11 @@ export default function CookiesPage() {
           body: (
             <ul>
               <li>Essential cookies to operate the site.</li>
-              <li>Analytics cookies to understand traffic patterns.</li>
-              <li>No advertising or third-party tracking is set up.</li>
+              <li>
+                Google Analytics 4 cookies to understand how visitors use the
+                site (pages viewed, contact clicks, form submissions).
+              </li>
+              <li>No advertising or remarketing cookies are set.</li>
             </ul>
           ),
         },

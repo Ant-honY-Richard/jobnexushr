@@ -2,8 +2,10 @@ import { PageHero } from "@/components/PageHero";
 import { CTASection } from "@/components/CTASection";
 
 export const metadata = {
-  title: "Payroll — Job Nexus HR",
-  description: "Workers can be engaged on Job Nexus HR payroll — managed end to end, with statutory cycles and ongoing administration.",
+  title: "Payroll Outsourcing & PF/ESI Management in India | Job Nexus HR",
+  description:
+    "Put your workforce on Job Nexus HR payroll: monthly salaries, PF and ESI filings, attendance input and exits handled end to end, with full visibility for you.",
+  alternates: { canonical: "/payroll" },
 };
 
 const SCOPE = [

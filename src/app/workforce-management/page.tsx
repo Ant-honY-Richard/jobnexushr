@@ -3,8 +3,10 @@ import { SignatureLine } from "@/components/SignatureLine";
 import { CTASection } from "@/components/CTASection";
 
 export const metadata = {
-  title: "Workforce Management — Job Nexus HR",
-  description: "Operational workforce management — deployment, attendance, payroll and ongoing workforce coordination.",
+  title: "Workforce Management Services | Attendance, Shift Cover & Grievances | Job Nexus HR",
+  description:
+    "Day-to-day workforce management after people start: attendance, shift gaps, replacements, grievances and payroll questions handled by the Job Nexus HR team.",
+  alternates: { canonical: "/workforce-management" },
 };
 
 const STAGES = [

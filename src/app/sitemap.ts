@@ -23,8 +23,10 @@ const ROUTES = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const lastModified = new Date();
   return ROUTES.map((path) => ({
     url: `${SITE_URL}${path}`,
+    lastModified,
     changeFrequency: path === "/jobs" ? "daily" : "monthly",
     priority: path === "" ? 1 : path === "/contact" ? 0.8 : 0.6,
   }));

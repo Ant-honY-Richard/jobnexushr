@@ -4,8 +4,10 @@ import { CTASection } from "@/components/CTASection";
 import { ServiceFinder } from "@/components/ServiceFinder";
 
 export const metadata = {
-  title: "For Employers — Job Nexus HR",
-  description: "Workforce partner for organizations that need dependable people and structured deployment across all industries.",
+  title: "Hire Staff in Bangalore & India | Staffing for Employers | Job Nexus HR",
+  description:
+    "Hiring made simple: permanent recruitment, volume staffing, payroll and compliance for employers across India — with one accountable account manager from brief to deployment.",
+  alternates: { canonical: "/employers" },
 };
 
 const JOURNEY = [

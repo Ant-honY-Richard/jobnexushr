@@ -26,12 +26,12 @@ Status key: **Built** = exists in the code · **Launch** = needed to go live, no
 
 | Bucket | Estimate | Actual |
 |---|---:|---:|
-| One-time build (325 h × ₹1,000) — §2 | **₹3,25,000** | |
+| One-time build (331 h × ₹1,000) — §2 | **₹3,31,000** | |
 | Running cost to launch, per year — §3 | **₹21,600 / yr** | |
-| **Year-1 total (build + running)** | **₹3,46,600** | |
+| **Year-1 total (build + running)** | **₹3,52,600** | |
 | *Pending one-time add-ons (not included above) — §4* | *₹90,000* | |
 | *Pending recurring add-ons (not included above) — §4* | *₹4,800 / yr* | |
-| *Year-1 total if every pending item is added* | *₹4,41,400* | |
+| *Year-1 total if every pending item is added* | *₹4,47,400* | |
 
 ---
 
@@ -147,7 +147,15 @@ Rate assumption: **₹1,000/h**. `Est. ₹ = Hours × 1,000`.
 | Interactive form: progress, choice cards, floating labels, prompt chips, QA | Built | 2 | 2,000 | | |
 | Rest of contact page matched to the form (cards, photo card, next-steps track), QA | Built | 2 | 2,000 | | |
 
-**One-time build total: 36 + 105 + 12 + 60 + 55 + 16 + 6 + 5 + 4 + 8 + 2 + 1 + 1.5 + 2 + 2 + 1.5 + 1 + 1 + 6 = 325 h → ₹3,25,000**
+### 2.11 SEO, structured data & analytics (2026-11-13) — 6 h
+| Item | Status | Hours | Est. ₹ | Actual ₹ | Notes |
+|---|---|---:|---:|---:|---|
+| Placeholder-domain fix, keyword titles/descriptions, canonicals on all pages | Built | 1.5 | 1,500 | | |
+| JSON-LD: Organization/EmploymentAgency, WebSite, Service, Breadcrumb, JobPosting | Built | 2 | 2,000 | | |
+| OG share image, llms.txt, AI-crawler robots rules, sitemap lastModified | Built | 1 | 1,000 | | |
+| GA4 tag + lead events, Search Console verification file, cookies text, QA build | Built | 1.5 | 1,500 | | GA4 + Search Console are free |
+
+**One-time build total: 36 + 105 + 12 + 60 + 55 + 16 + 6 + 5 + 4 + 8 + 2 + 1 + 1.5 + 2 + 2 + 1.5 + 1 + 1 + 6 + 6 = 331 h → ₹3,31,000**
 
 ---
 
@@ -192,6 +200,7 @@ add the actual when known.
 
 | Date | Item added / changed | Type (one-time / recurring / removal) | Est. ₹ | Actual ₹ | Change Log # in spec.md | Notes |
 |---|---|---|---:|---:|---|---|
+| 2026-11-13 | SEO foundations: domain fix, metadata, JSON-LD, OG image, llms.txt, GA4, Search Console file | one-time | 6,000 | | 138–144 | See §2.11; GA4/Search Console have no running cost |
 | 2026-11-12 | Audit fixes: /register + candidate CTAs, no-fee line, WhatsApp button, hero rework, shorter home, earlier reveals, consistent sectors, navbar | one-time | 6,000 | | 130–137 | DB/job posting deferred |
 | 2026-11-11 | Client logo row in the reference style (grey → colour hover, blur siblings) | one-time | 0 | | 129 | Within the previous redesign estimate |
 | 2026-11-11 | Official client logos + clients section redesign | one-time | 1,000 | | 128 | |

@@ -5,8 +5,10 @@ import { SERVICES } from "@/lib/services";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Staffing Services — Job Nexus HR",
-  description: "Permanent recruitment, volume staffing, payroll, compliance, BGV and workforce management.",
+  title: "Staffing Services in Bangalore | Recruitment, Volume Staffing, Payroll & BGV | Job Nexus HR",
+  description:
+    "Permanent recruitment, volume staffing, managed payroll, statutory compliance, background verification and workforce management — one account manager handles it all.",
+  alternates: { canonical: "/staffing" },
 };
 
 export default function StaffingPage() {

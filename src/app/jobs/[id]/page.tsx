@@ -7,6 +7,8 @@ import { JobApplicationForm } from "@/components/JobApplicationForm";
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { JsonLd } from "@/components/JsonLd";
+import { jobPostingSchema } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -62,6 +64,27 @@ async function applyAction(formData: FormData) {
   revalidatePath(`/jobs/${jobId}`);
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const base = { alternates: { canonical: `/jobs/${id}` } };
+  if (!/^\d{1,9}$/.test(id)) return base;
+  try {
+    const r = await db
+      .select({ title: jobs.title, location: jobs.location })
+      .from(jobs)
+      .where(and(eq(jobs.id, Number(id)), eq(jobs.isActive, true)))
+      .limit(1);
+    if (!r[0]) return base;
+    return {
+      ...base,
+      title: `${r[0].title} Job in ${r[0].location} | Job Nexus HR`,
+      description: `Apply for ${r[0].title} in ${r[0].location} through Job Nexus HR. A recruiter gets back to you personally.`,
+    };
+  } catch {
+    return base;
+  }
+}
+
 export default async function JobDetail({
   params,
 }: {
@@ -88,6 +111,7 @@ export default async function JobDetail({
 
   return (
     <>
+      <JsonLd data={jobPostingSchema(job)} />
       <PageHero
         index={`/ Jobs / ${job.id}`}
         label={job.industry}

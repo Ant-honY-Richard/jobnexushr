@@ -6,6 +6,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { VisualKey } from "@/lib/visuals";
 import { SERVICES as ALL_SERVICES, serviceBySlug } from "@/lib/services";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbSchema, serviceSchema } from "@/lib/seo";
 
 /**
  * Service detail pages. They share the hero, breadcrumbs, related links and CTA, but each one explains
@@ -102,7 +104,13 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const s = serviceBySlug(slug);
-  return s ? { title: `${s.name} — Job Nexus HR`, description: SERVICES[slug]?.body } : {};
+  return s
+    ? {
+        title: `${s.name} Services in Bangalore & India | Job Nexus HR`,
+        description: SERVICES[slug]?.body,
+        alternates: { canonical: `/staffing/${slug}` },
+      }
+    : {};
 }
 
 const Eyebrow = ({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) => (
@@ -292,6 +300,16 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   return (
     <>
+      <JsonLd
+        data={[
+          serviceSchema(service.name, page.body, `/staffing/${slug}`),
+          breadcrumbSchema([
+            { name: "Home", path: "" },
+            { name: "Services", path: "/staffing" },
+            { name: service.name, path: `/staffing/${slug}` },
+          ]),
+        ]}
+      />
       <PageHero
         index={`/ Services / ${service.code}`}
         label={service.head}

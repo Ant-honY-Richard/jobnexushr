@@ -1,7 +1,7 @@
 import { LegalPage } from "@/components/LegalPage";
 import { CONTACT } from "@/lib/site";
 
-export const metadata = { title: "Privacy Policy — Job Nexus HR" };
+export const metadata = { title: "Privacy Policy — Job Nexus HR", alternates: { canonical: "/privacy" } };
 
 export default function PrivacyPage() {
   return (

@@ -2,9 +2,10 @@ import { PageHero } from "@/components/PageHero";
 import Link from "next/link";
 
 export const metadata = {
-  title: "About — Job Nexus HR",
+  title: "About Job Nexus HR | Recruitment & Staffing Company, Bangalore",
   description:
-    "Job Nexus HR is a recruitment and staffing company built around continuity, accountability and people. Better Talent. Brighter Futures.",
+    "Job Nexus HR is a Bangalore recruitment and staffing company built on continuity, accountability and people — one account manager per client, from first brief to long after day one.",
+  alternates: { canonical: "/about" },
 };
 
 const TIMELINE = [

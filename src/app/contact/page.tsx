@@ -7,9 +7,10 @@ import { revalidatePath } from "next/cache";
 import { ContactForm } from "@/components/ContactForm";
 
 export const metadata = {
-  title: "Contact — Job Nexus HR",
+  title: "Contact Job Nexus HR | Hire Staff or Find a Job in Bangalore",
   description:
-    "Tell us what you need. We'll tell you how we'd handle it.",
+    "Tell us what you need — roles, numbers, locations and deadlines. A real person at Job Nexus HR replies within one business day. Call +91 96061 97196 or email info@jobnexushr.com.",
+  alternates: { canonical: "/contact" },
 };
 
 export const dynamic = "force-dynamic";
