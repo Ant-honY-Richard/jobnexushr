@@ -200,6 +200,7 @@ add the actual when known.
 
 | Date | Item added / changed | Type (one-time / recurring / removal) | Est. ₹ | Actual ₹ | Change Log # in spec.md | Notes |
 |---|---|---|---:|---:|---|---|
+| 2026-11-13 | GTM start-event fix in Analytics (part of §2.11) | one-time | 0 | | 145 | Covered by the SEO item |
 | 2026-11-13 | SEO foundations: domain fix, metadata, JSON-LD, OG image, llms.txt, GA4, Search Console file | one-time | 6,000 | | 138–144 | See §2.11; GA4/Search Console have no running cost |
 | 2026-11-12 | Audit fixes: /register + candidate CTAs, no-fee line, WhatsApp button, hero rework, shorter home, earlier reveals, consistent sectors, navbar | one-time | 6,000 | | 130–137 | DB/job posting deferred |
 | 2026-11-11 | Client logo row in the reference style (grey → colour hover, blur siblings) | one-time | 0 | | 129 | Within the previous redesign estimate |

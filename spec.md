@@ -238,6 +238,7 @@ Newest first. One row per change; keep entries short and name the files.
 | 142 | **AI search readiness**: `public/llms.txt` company summary; robots.txt lists AI crawlers explicitly; sitemap gets `lastModified` | `public/llms.txt`, `robots.ts`, `sitemap.ts` |
 | 143 | **Google Analytics 4** installed (`Analytics` client component, loads after hydration): page views plus `contact_click` (tel/mailto/WhatsApp links) and `generate_lead` (any POST form — contact, job application). Supports the 2026 `GTM-…` Google tag snippet and classic `G-…`. Cookies page now names Google Analytics 4 (resolves §8 D) | `components/Analytics.tsx`, `layout.tsx`, `cookies/page.tsx` |
 | 144 | **Search Console** ownership file `public/google57be15b428bba9bc.html` (URL-prefix property `https://www.jobnexushr.com/`, owner anthonyrichard@jobnexushr.com). Verify in Search Console after deploy, then submit `sitemap.xml` | `public/google57be15b428bba9bc.html` |
+| 145 | **GTM start event**: with a `GTM-…` ID the init script now pushes `{'gtm.start', event:'gtm.js'}` (as in Google's standard snippet) so the container's All-Pages / page-view tags fire | `Analytics.tsx` |
 
 Checked: `tsc` + `eslint` clean; `next build` OK; production server: canonical, title, `og.png`, two JSON-LD blocks (valid JSON), GA tag, robots/sitemap on jobnexushr.com, `/llms.txt` and the verification file return 200.
 

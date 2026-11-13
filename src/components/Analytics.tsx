@@ -42,7 +42,7 @@ export function Analytics({ gaId }: { gaId: string }) {
   const src = isContainer
     ? `https://www.googletagmanager.com/gtm.js?id=${gaId}`
     : `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
-  const init = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());${isContainer ? "" : `gtag('config','${gaId}');`}`;
+  const init = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());${isContainer ? "dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});" : `gtag('config','${gaId}');`}`;
   return (
     <>
       <Script id="ga4-init" strategy="afterInteractive">
