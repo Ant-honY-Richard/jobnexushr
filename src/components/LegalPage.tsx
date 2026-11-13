@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { PageHero } from "./PageHero";
+import { LEGAL } from "@/lib/site";
 
 export type LegalSection = { id: string; title: string; body: React.ReactNode };
 
@@ -42,7 +43,7 @@ export function LegalPage({
                 {sections.map((s, i) => (
                   <li key={s.id} className="border-b border-rule">
                     <a href={`#${s.id}`} className="flex gap-3 py-3 text-[14px] text-ink/80 transition-colors hover:text-green">
-                      <span className="font-mono text-[11px] tracking-[0.18em] text-muted">0{i + 1}</span>
+                      <span className="font-mono text-[11px] tracking-[0.18em] text-muted">{String(i + 1).padStart(2, "0")}</span>
                       {s.title}
                     </a>
                   </li>
@@ -64,10 +65,11 @@ export function LegalPage({
           </aside>
 
           <article className="lg:col-span-8 lg:col-start-5">
-            <div className="prose-jn max-w-[68ch] text-[17px]">{intro}</div>
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">Last updated: {LEGAL.policyDate}</p>
+            <div className="prose-jn mt-4 max-w-[68ch] text-[17px]">{intro}</div>
             {sections.map((s, i) => (
               <section key={s.id} id={s.id} aria-labelledby={`${s.id}-h`} className="mt-12 scroll-mt-28 border-t border-rule pt-8 lg:mt-14">
-                <p className="font-mono text-[11px] tracking-[0.18em] text-dark-green">0{i + 1}</p>
+                <p className="font-mono text-[11px] tracking-[0.18em] text-dark-green">{String(i + 1).padStart(2, "0")}</p>
                 <h2 id={`${s.id}-h`} className="editorial mt-2 text-[clamp(1.6rem,2.6vw,2.2rem)] leading-tight tracking-[-0.03em] text-ink">
                   {s.title}
                 </h2>

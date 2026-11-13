@@ -26,12 +26,12 @@ Status key: **Built** = exists in the code · **Launch** = needed to go live, no
 
 | Bucket | Estimate | Actual |
 |---|---:|---:|
-| One-time build (331 h × ₹1,000) — §2 | **₹3,31,000** | |
+| One-time build (336 h × ₹1,000) — §2 | **₹3,36,000** | |
 | Running cost to launch, per year — §3 | **₹21,600 / yr** | |
-| **Year-1 total (build + running)** | **₹3,52,600** | |
+| **Year-1 total (build + running)** | **₹3,57,600** | |
 | *Pending one-time add-ons (not included above) — §4* | *₹90,000* | |
 | *Pending recurring add-ons (not included above) — §4* | *₹4,800 / yr* | |
-| *Year-1 total if every pending item is added* | *₹4,47,400* | |
+| *Year-1 total if every pending item is added* | *₹4,52,400* | |
 
 ---
 
@@ -155,7 +155,15 @@ Rate assumption: **₹1,000/h**. `Est. ₹ = Hours × 1,000`.
 | OG share image, llms.txt, AI-crawler robots rules, sitemap lastModified | Built | 1 | 1,000 | | |
 | GA4 tag + lead events, Search Console verification file, cookies text, QA build | Built | 1.5 | 1,500 | | GA4 + Search Console are free |
 
-**One-time build total: 36 + 105 + 12 + 60 + 55 + 16 + 6 + 5 + 4 + 8 + 2 + 1 + 1.5 + 2 + 2 + 1.5 + 1 + 1 + 6 + 6 = 331 h → ₹3,31,000**
+### 2.12 Legal compliance (2026-11-13) — 5 h
+| Item | Status | Hours | Est. ₹ | Actual ₹ | Notes |
+|---|---|---:|---:|---:|---|
+| `legal-checker` skill: checklist + audit procedure, LEGAL-CHECK.md report | Built | 1.5 | 1,500 | | Reusable on other sites |
+| Cookie banner, consent-gated analytics, cookie settings link | Built | 1.5 | 1,500 | | |
+| Form consent boxes (3 forms) + consent record in emails | Built | 0.5 | 500 | | |
+| Privacy / Terms / Cookies rewrite, LEGAL config, footer disclosures, QA | Built | 1.5 | 1,500 | | Lawyer review not included |
+
+**One-time build total: 36 + 105 + 12 + 60 + 55 + 16 + 6 + 5 + 4 + 8 + 2 + 1 + 1.5 + 2 + 2 + 1.5 + 1 + 1 + 6 + 6 + 5 = 336 h → ₹3,36,000**
 
 ---
 
@@ -200,6 +208,8 @@ add the actual when known.
 
 | Date | Item added / changed | Type (one-time / recurring / removal) | Est. ₹ | Actual ₹ | Change Log # in spec.md | Notes |
 |---|---|---|---:|---:|---|---|
+| 2026-11-13 | Company name, registered office and CIN added from incorporation docs | one-time | 0 | | 151 | Within §2.12 |
+| 2026-11-13 | Legal compliance: legal-checker skill, cookie banner, form consent, legal pages rewrite | one-time | 5,000 | | 146–150 | See §2.12 |
 | 2026-11-13 | GTM start-event fix in Analytics (part of §2.11) | one-time | 0 | | 145 | Covered by the SEO item |
 | 2026-11-13 | SEO foundations: domain fix, metadata, JSON-LD, OG image, llms.txt, GA4, Search Console file | one-time | 6,000 | | 138–144 | See §2.11; GA4/Search Console have no running cost |
 | 2026-11-12 | Audit fixes: /register + candidate CTAs, no-fee line, WhatsApp button, hero rework, shorter home, earlier reveals, consistent sectors, navbar | one-time | 6,000 | | 130–137 | DB/job posting deferred |

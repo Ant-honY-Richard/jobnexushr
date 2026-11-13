@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Logo } from "./Logo";
-import { CONTACT, NO_FEE } from "@/lib/site";
+import { CONTACT, LEGAL as LEGAL_INFO, LEGAL_NAME, NO_FEE } from "@/lib/site";
+import { CookieSettingsButton } from "./CookieSettingsButton";
 
 const QUICK = [
   { label: "Home", href: "/" },
@@ -205,8 +206,8 @@ export function Footer() {
               Better Talent. <span className="text-green">Brighter Futures.</span>
             </p>
           </div>
-          {/* Phones: three equal pills on one row. From sm: inline links with thin dividers. */}
-          <ul className="grid grid-cols-[1fr_1.4fr_0.85fr] gap-2 whitespace-nowrap text-[12px] text-white/80 sm:flex sm:flex-wrap sm:items-center sm:gap-x-4 sm:gap-y-2 sm:text-[14px]">
+          {/* Phones: four pills in a 2×2 grid. From sm: inline links with thin dividers. */}
+          <ul className="grid grid-cols-2 gap-2 whitespace-nowrap text-[12px] text-white/80 sm:flex sm:flex-wrap sm:items-center sm:gap-x-4 sm:gap-y-2 sm:text-[14px]">
             {LEGAL.map((l, i) => (
               <li key={l.href} className="flex items-center sm:gap-4">
                 {i > 0 && <span className="hidden h-4 w-px bg-white/25 sm:block" aria-hidden />}
@@ -218,6 +219,10 @@ export function Footer() {
                 </Link>
               </li>
             ))}
+            <li className="flex items-center sm:gap-4">
+              <span className="hidden h-4 w-px bg-white/25 sm:block" aria-hidden />
+              <CookieSettingsButton className="block w-full rounded-full border border-white/15 px-2 py-2 text-center transition-colors hover:border-green hover:text-green sm:w-auto sm:rounded-none sm:border-0 sm:px-0 sm:py-1 sm:text-left" />
+            </li>
           </ul>
         </div>
       </div>
@@ -230,7 +235,21 @@ export function Footer() {
           style={{ clipPath: "polygon(45% 0, 100% 0, 100% 100%, 0 100%)" }}
         />
         <div className="relative mx-auto flex items-center gap-6 px-6 py-6 lg:px-10" style={{ maxWidth: "1480px" }}>
-          <p className="text-[13px] text-white/60">© {new Date().getFullYear()} Job Nexus HR. All rights reserved.</p>
+          <div className="text-[13px] text-white/60">
+            <p>© {new Date().getFullYear()} {LEGAL_NAME}. All rights reserved.</p>
+            {(LEGAL_INFO.cin || LEGAL_INFO.gstin || LEGAL_INFO.registeredAddress || LEGAL_INFO.licences.length > 0) && (
+              <p className="mt-1 text-[12px] text-white/50">
+                {[
+                  LEGAL_INFO.registeredAddress && `Registered office: ${LEGAL_INFO.registeredAddress}`,
+                  LEGAL_INFO.cin && `CIN: ${LEGAL_INFO.cin}`,
+                  LEGAL_INFO.gstin && `GSTIN: ${LEGAL_INFO.gstin}`,
+                  ...LEGAL_INFO.licences,
+                ]
+                  .filter(Boolean)
+                  .join(" · ")}
+              </p>
+            )}
+          </div>
           <span className="hidden flex-1 items-center sm:flex" aria-hidden>
             <span className="h-px flex-1 bg-gradient-to-r from-transparent to-green/60" />
             <span className="h-2.5 w-2.5 rounded-full bg-green shadow-[0_0_12px_rgba(25,196,138,0.8)]" />

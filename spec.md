@@ -68,7 +68,7 @@ npx tsx scripts/seed.ts     # insert 4 sample jobs (needs DATABASE_URL)
 | `/jobs` | `src/app/jobs/page.tsx` | dynamic | Reads `jobs` table; **filters work** via `?q=&location=&industry=&type=` |
 | `/jobs/[id]` | `src/app/jobs/[id]/page.tsx` | dynamic | Job detail + application form (server action) |
 | `/contact` | `src/app/contact/page.tsx` | dynamic | Custom hero (no PageHero): sticky left column (contact cards + office photo card), form card (server action), "What happens next" progress track |
-| `/privacy`, `/terms`, `/cookies` | `src/app/{privacy,terms,cookies}/page.tsx` | static | Short summary legal pages rendered through `LegalPage` (sections array) |
+| `/privacy`, `/terms`, `/cookies` | `src/app/{privacy,terms,cookies}/page.tsx` | static | Full legal pages (DPDP-style privacy notice with Grievance Officer, terms under Indian law, cookie table) through `LegalPage`; owner facts come from `LEGAL` in `lib/site.ts` |
 | `/api/health` | `src/app/api/health/route.ts` | dynamic | `{ok:true}` / 500 if DB unreachable |
 | `/robots.txt`, `/sitemap.xml` | `src/app/robots.ts`, `sitemap.ts` | generated | Uses `SITE_URL`; robots explicitly allows AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended…) |
 | `/llms.txt` | `public/llms.txt` | static | Plain-text company summary for AI search tools — keep services/contact in sync with the site |
@@ -141,7 +141,10 @@ and anything on dark. Reduced motion is honoured: loops stop in CSS and motion e
 | `icons/JNIcon.tsx` | **Custom Job Nexus HR icon set** (35 icons, 32×32 grid, 1.5 stroke, one green accent each): services (`recruit volume payroll compliance verify workforce`), brand (`continuity nexus talent growth`), process (`requirement understand match deploy attendance support`), audiences (`employer candidate message mail story check cross`), industries (`tech bfsi healthcare pharma manufacturing retail ecommerce logistics hospitality telecom construction bpo`). Exports `JNIcon`, `IconBadge` (icon in the chamfer tile; `size sm/md/lg`, `tone light/dark`, `active`), `CHAMFER`, `IconName`. Drawing rules are in the file header — follow them for new icons |
 | `visual/BrandVisual.tsx` | The hero's visual language, reusable: photo in a rounded-chamfer SVG mask + green chamfer shape behind + thin green outline strokes that draw in. Props: `asset` (slot in `src/lib/visuals.ts`), `icon` (fallback art), `label`, `aspect`, `tone`, `shape left/right`, `frame chamfer/full` (`full` = whole image, rounded, for posters with text), `play` (override in-view trigger). Without a photo it renders `BrandArt` (tinted dot-grid field, rotating orbit rings, the icon on a chamfer tile, tagline label) — also exported and used by `Team` |
 | `ServiceFinder.tsx` | "Start from your situation" list: plain-language need → service (from `lib/services.ts`); whole row links. Optional `exclude` slug |
-| `LegalPage.tsx` | Long-form layout for legal pages: contents list, numbered sections, `.prose-jn`, note callout, sibling links |
+| `LegalPage.tsx` | Long-form layout for legal pages: "Last updated" date, contents list, numbered sections (01, 02…), `.prose-jn`, note callout, sibling links |
+| `CookieBanner.tsx` | Cookie consent card (Accept / Reject equal), shown until a choice; re-opened by `openConsent()` |
+| `CookieSettingsButton.tsx` | "Cookie settings" button (footer, Cookie Policy) that re-opens the banner |
+| `ConsentCheckbox.tsx` | Required unticked consent box for forms + `consentRecord()` (timestamp + policy version sent with the submission) |
 | `MotionProvider.tsx` | `<MotionConfig reducedMotion="user">` around the app (in `layout.tsx`) |
 | `SectionHeader.tsx` | Reveal-on-scroll section title (`index`, `label`, `title`, `description`) |
 | `CTASection.tsx` | Closing CTA (`title`, `subtitle`, `primaryHref/Label`, optional secondary, `tone` dark/light — use light when the section before it is dark) |
@@ -227,6 +230,19 @@ update `width/height` in `Logo.tsx` if the aspect ratio changes.
 ## 7. Change Log
 
 Newest first. One row per change; keep entries short and name the files.
+
+### 2026-11-13 (later) — Legal compliance (legal-checker skill)
+| # | Change | Files |
+|---|---|---|
+| 146 | **New project skill `legal-checker`** — reusable legal/compliance checklist (India DPDP Act 2023 + Rules 2025, IT Act/SPDI Rules, Companies Act disclosures, recruitment licences, cookies, forms, terms; GDPR/CCPA add-ons) and audit procedure. Report for this site in `LEGAL-CHECK.md` | `.claude/skills/legal-checker/{SKILL.md,checklist.md}`, `LEGAL-CHECK.md` |
+| 147 | **Cookie consent**: banner with equal Accept/Reject; Google tag loads only after Accept (consent mode: ads always denied); choice in localStorage `jn-cookie-consent`; "Cookie settings" in the footer legal row (phones: 2×2 pills) re-opens it; withdrawing clears `_ga` cookies and reloads | `CookieBanner.tsx`, `CookieSettingsButton.tsx`, `lib/consent.ts`, `Analytics.tsx`, `layout.tsx`, `Footer.tsx` |
+| 148 | **Form consent**: required unticked "I agree…" box with Privacy Policy link on contact, register and job-application forms; the email includes `Consent: Yes — <timestamp> — privacy policy <version>` | `ConsentCheckbox.tsx`, `ContactForm.tsx`, `RegisterForm.tsx`, `JobApplicationForm.tsx` |
+| 149 | **Legal pages rewritten**: Privacy (who we are, data per audience, purposes, consent, named processors, transfers abroad, retention, security/breach, rights, Grievance Officer, children, changes), Terms (no-fee + anti-fraud, no job guarantee, employers, equal opportunity, acceptable use, IP, links, liability, Indian law / Bengaluru courts), Cookies (per-cookie table + settings button). "Last updated" date on all three | `app/privacy`, `app/terms`, `app/cookies`, `LegalPage.tsx` |
+| 150 | **`LEGAL` config** in `lib/site.ts` (entity name, registered address, CIN, GSTIN, licences, Grievance Officer, retention, policy date/version) — empty values are hidden, never shown as placeholders; footer shows legal name + registration line once filled | `lib/site.ts`, `Footer.tsx` |
+| 151 | **Company disclosures filled from the incorporation certificate**: legal name Job Nexus HR Private Limited, registered office (#686, 22nd Cross, L R Nagar, Bengaluru 560047) and CIN U78300KA2026PTC227835 — now in the footer and Privacy Policy (Companies (Incorporation) Rules r.26). GSTIN/PAN/TAN deliberately not published (not required) | `lib/site.ts`, `LEGAL-CHECK.md` |
+| 152 | **Grievance Officer named**: R Aglin Arul Maria (Privacy Policy) | `lib/site.ts` |
+
+Checked: `tsc` + `eslint` clean; production build OK; on the build at 375 px — banner shows on first visit, no Google script before Accept, loads after Accept, persists on reload, footer link re-opens, Reject removes the tag with no `_ga` cookies; forms refuse to submit without the consent box; no horizontal scroll on legal/contact pages.
 
 ### 2026-11-13 — SEO, structured data, GA4 + Search Console
 | # | Change | Files |
@@ -528,3 +544,4 @@ Checked: `tsc` + `eslint` clean, `next build` OK (run with `--webpack` in a copy
 | U | **"Start here" images are cut from the mockup** (~900 px wide, likely AI-generated, note cards baked in so their text isn't live). Fine on screens up to ~1440 px at 1×; slightly soft on retina/very wide screens. For launch, supply the two original photos at ≥1800 px and the frames/cards can be rebuilt in code (the previous live-card version is in change #66) | Needs originals if you want sharper images |
 | O | ~~Logo PNGs are ~340 KB / ~280 KB~~ — resolved 2026-10-27: logo is now an inline SVG; PNGs 53 KB | Done |
 | V | **Audit items that need the owner's facts** (from the 12 Nov 2026 UI/UX audit): 2–3 named testimonials, one case study with real numbers, compliance strip (CLRA licence, GST, PF/ESI registration, ISO if any), real founding year, employer turnaround promises (shortlist / first deployment — only if true), real photos of sites/teams/recruiters, Hindi/regional candidate pages, analytics funnel. Also confirm: the WhatsApp number (assumed +91 96061 97196) and the "We never charge candidates any fee" policy | Send the facts/photos; each slot is a small addition |
+| W | **Legal facts the owner must add** (see `LEGAL-CHECK.md`): CLRA / Shops & Establishments licence numbers; confirm 24-month retention, 72 h acknowledgement / 30-day resolution, founding year in JSON-LD; lawyer review of policy text | Fill `LEGAL` in `src/lib/site.ts` |

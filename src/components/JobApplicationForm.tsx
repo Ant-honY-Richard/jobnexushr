@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { deliver, sendSubmissionEmail } from "@/lib/emailjs";
+import { ConsentCheckbox, consentRecord } from "./ConsentCheckbox";
 
 type JobApplicationFormProps = {
   jobId: number;
@@ -41,6 +42,7 @@ export function JobApplicationForm({ jobId, jobTitle = "", action }: JobApplicat
               Phone: v("phone"),
               Experience: v("experience"),
               Note: v("coverNote"),
+              Consent: consentRecord(),
             },
           }),
         () => action(formData)
@@ -108,6 +110,10 @@ export function JobApplicationForm({ jobId, jobTitle = "", action }: JobApplicat
         </label>
         <textarea id="apply-coverNote" name="coverNote" rows={3} className="field-input resize-none" />
       </div>
+      <ConsentCheckbox
+        id="apply-consent"
+        purpose="process my application and share it with the hiring employer for this role"
+      />
       {error && (
         <p role="alert" className="border-l-2 border-red-700 bg-red-700/5 px-4 py-3 text-[13px] text-red-800">
           {error}

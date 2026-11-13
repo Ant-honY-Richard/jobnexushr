@@ -5,6 +5,7 @@ import Link from "next/link";
 import { CONTACT } from "@/lib/site";
 import { deliver, sendSubmissionEmail } from "@/lib/emailjs";
 import { JNIcon, type IconName } from "./icons/JNIcon";
+import { ConsentCheckbox, consentRecord } from "./ConsentCheckbox";
 
 type ContactFormProps = {
   action: (formData: FormData) => Promise<unknown>;
@@ -178,6 +179,7 @@ export function ContactForm({ action, types }: ContactFormProps) {
               Phone: v("phone"),
               Company: v("company"),
               Message: v("message"),
+              Consent: consentRecord(),
             },
           }),
         () => action(formData)
@@ -320,6 +322,8 @@ export function ContactForm({ action, types }: ContactFormProps) {
           </div>
         </div>
       </div>
+
+      <ConsentCheckbox id="contact-consent" purpose="reply to my enquiry and discuss my requirement" className="mt-6" />
 
       {error && (
         <p role="alert" className="mt-5 rounded-xl border border-red-700/30 bg-red-700/5 px-4 py-3 text-[14px] text-red-800">

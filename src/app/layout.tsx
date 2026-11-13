@@ -9,6 +9,7 @@ import { MotionProvider } from "@/components/MotionProvider";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { GA_ID, GSC_VERIFICATION, SITE_URL } from "@/lib/site";
 import { Analytics } from "@/components/Analytics";
+import { CookieBanner } from "@/components/CookieBanner";
 import { JsonLd } from "@/components/JsonLd";
 import { organizationSchema, websiteSchema } from "@/lib/seo";
 
@@ -92,6 +93,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <Footer />
           <WhatsAppButton />
         </MotionProvider>
+        <CookieBanner />
         <Analytics gaId={GA_ID} />
       </body>
     </html>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { CONTACT, NO_FEE, whatsappLink } from "@/lib/site";
 import { emailEnabled, sendSubmissionEmail } from "@/lib/emailjs";
+import { ConsentCheckbox, consentRecord } from "./ConsentCheckbox";
 
 const JOB_TYPES = [
   "Warehouse & logistics",
@@ -49,6 +50,7 @@ export function RegisterForm() {
           Email: v("email"),
           "CV link": v("cv"),
           Note: v("note"),
+          Consent: consentRecord(),
         },
       });
       setState("done");
@@ -121,6 +123,12 @@ export function RegisterForm() {
           <textarea id="reg-note" name="note" rows={3} placeholder="Shift you prefer, when you can start…" className={`${field} resize-none`} />
         </div>
       </div>
+
+      <ConsentCheckbox
+        id="reg-consent"
+        purpose="contact me about jobs and share my profile with employers for roles I agree to"
+        className="mt-6"
+      />
 
       {state === "error" && (
         <p role="alert" className="mt-5 rounded-xl border border-red-700/30 bg-red-700/5 px-4 py-3 text-[14px] text-red-800">
